@@ -1,0 +1,10 @@
+[package]
+name = "normalise_dates"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+polars = { version = "~0.38", features = ["lazy", "fmt", "dtype-date", "round_series", "concat_str", "strings", "regex", "dynamic_group_by"] }
+chrono = "~0.4"

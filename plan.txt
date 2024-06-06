@@ -1,0 +1,9 @@
+
+Start with daily average per week.
+downsample to daily avg per day
+aggregate to daily average per month
+
+
+every 1mo period 1w
+│ 2021-08-16 ┆ 214245   │
+
