@@ -46,7 +46,7 @@ fn main() {
             .cast(DataType::UInt32)
             .alias("avg_daily_views")])
         // Convert date column back to string and truncate to YYYY-MM
-        .with_column(col("date").cast(DataType::String).str().slice(0, Some(7)))
+        .with_column(col("date"))
         .collect()
         .unwrap();
 
@@ -54,7 +54,10 @@ fn main() {
 
     // Write out to another csv
     let mut file = std::fs::File::create("weekly_unique_users_21-22_averaged.csv").unwrap();
-    CsvWriter::new(&mut file).finish(&mut df).unwrap();
+    CsvWriter::new(&mut file)
+        .with_date_format(Some("%Y-%m".to_string()))
+        .finish(&mut df)
+        .unwrap();
 
     println!("\nwritten to file");
 }
