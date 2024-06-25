@@ -15,7 +15,6 @@ df = (
     )
     .group_by_dynamic("date", every="1mo", period="1mo", check_sorted=False)
     .agg(pl.col("views").mean().cast(pl.UInt32).alias("avg_daily_views"))
-    # .with_columns([pl.col("date").dt.to_string("%Y-%m")])
     .collect()
 )
 
