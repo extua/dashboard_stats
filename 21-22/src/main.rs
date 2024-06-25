@@ -1,4 +1,3 @@
-// use chrono::Weekday;
 use polars::{prelude::*, series::IsSorted};
 
 fn main() {
@@ -8,7 +7,7 @@ fn main() {
         .with_encoding(CsvEncoding::Utf8)
         .with_n_rows(Some(42))
         .finish()
-        .unwrap();
+        .expect("failed to read the CSV");
 
     let time_options = StrptimeOptions {
         // Parse dates in US format
@@ -45,10 +44,9 @@ fn main() {
             .mean()
             .cast(DataType::UInt32)
             .alias("avg_daily_views")])
-        // Convert date column back to string and truncate to YYYY-MM
         .with_column(col("date"))
         .collect()
-        .unwrap();
+        .expect("failed to execute GroupBy");
 
     print!("{}", df);
 
@@ -57,7 +55,7 @@ fn main() {
     CsvWriter::new(&mut file)
         .with_date_format(Some("%Y-%m".to_string()))
         .finish(&mut df)
-        .unwrap();
+        .expect("failed to write back out to csv file");
 
     println!("\nwritten to file");
 }
